@@ -1,5 +1,5 @@
 import { ProjectBrandLink } from "@/components/ProjectBrandLink"
-import { SiteArborescenceBoard } from "@/presentation/SiteArborescenceBoard"
+import { SiteArborescencePanel } from "@/presentation/SiteArborescencePanel"
 import { WireframeScreen } from "@/presentation/WireframeScreen"
 import { typography } from "@/styles/typography"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -47,7 +47,8 @@ const demoDesktopAnnotations = [
   },
 ] as const
 
-const tabPanelClass = "py-8 data-[state=inactive]:hidden"
+/** 40px (pt-10) sous le header sticky, puis contenu. */
+const tabPanelClass = "pt-10 pb-12 data-[state=inactive]:hidden"
 
 export function PresentationLayout() {
   return (
@@ -110,18 +111,10 @@ export function PresentationLayout() {
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-6xl px-4 pb-12 pt-2 sm:px-6 sm:pb-16 sm:pt-4">
+        <main className="mx-auto w-full max-w-6xl px-4 pb-12 pt-0 sm:px-6 sm:pb-16">
           <TabsContent value="arborescence" className={tabPanelClass}>
             <div className="mx-auto w-full max-w-[min(100%,72rem)]">
-              <h2 className={cn(typography.wireframeTitleCompact, "mb-2")}>
-                Structure du site
-              </h2>
-              <p className={cn(typography.treeIntro, "mb-8 max-w-2xl")}>
-                Lecture par niveaux : entrée, grands ensembles, sous-pages
-                puis types de gabarit — schéma type livrable d’architecture
-                d’information (contenus fictifs).
-              </p>
-              <SiteArborescenceBoard />
+              <SiteArborescencePanel />
             </div>
           </TabsContent>
 
