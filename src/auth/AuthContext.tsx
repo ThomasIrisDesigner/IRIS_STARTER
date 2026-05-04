@@ -1,0 +1,83 @@
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react"
+
+import { AUTH_PASSWORD, AUTH_STORAGE_KEY } from "@/auth/constants"
+
+type AuthContextValue = {
+  isAuthenticated: boolean
+  login: (password: string) => boolean
+  logout: () => void
+}
+
+const AuthContext = createContext<AuthContextValue | null>(null)
+
+const listeners = new Set<() => void>()
+
+function subscribe(listener: () => void) {
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
+  }
+}
+
+function getSnapshot() {
+  return sessionStorage.getItem(AUTH_STORAGE_KEY) === "1"
+}
+
+function getServerSnapshot() {
+  return false
+}
+
+function emit() {
+  for (const l of listeners) l()
+}
+
+function setSession(active: boolean) {
+  if (active) {
+    sessionStorage.setItem(AUTH_STORAGE_KEY, "1")
+  } else {
+    sessionStorage.removeItem(AUTH_STORAGE_KEY)
+  }
+  emit()
+}
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const isAuthenticated = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot
+  )
+
+  const login = useCallback((password: string) => {
+    if (password === AUTH_PASSWORD) {
+      setSession(true)
+      return true
+    }
+    return false
+  }, [])
+
+  const logout = useCallback(() => {
+    setSession(false)
+  }, [])
+
+  const value = useMemo(
+    () => ({ isAuthenticated, login, logout }),
+    [isAuthenticated, login, logout]
+  )
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
+
+export function useAuth() {
+  const ctx = useContext(AuthContext)
+  if (!ctx) {
+    throw new Error("useAuth doit être utilisé dans un AuthProvider")
+  }
+  return ctx
+}

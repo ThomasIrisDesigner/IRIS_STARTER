@@ -1,0 +1,81 @@
+/**
+ * IRIS_STARTER — jetons sémantiques (palette slate wireframe).
+ * Modifier ces valeurs pour la DA client ; les composants shadcn
+ * consomment les variables --background, --primary, etc.
+ */
+:root {
+  --color-primary: #020617;
+  --color-secondary: #334155;
+  --color-background: #f8fafc;
+  --color-border: #e2e8f0;
+  --color-text: #1e293b;
+  --color-login-canvas: #f1f5f9;
+  --color-surface: #ffffff;
+
+  --background: var(--color-background);
+  --foreground: var(--color-text);
+  --card: var(--color-surface);
+  --card-foreground: var(--color-text);
+  --popover: var(--color-surface);
+  --popover-foreground: var(--color-text);
+  --primary: var(--color-primary);
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: var(--color-secondary);
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: var(--color-text);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: var(--color-border);
+  --input: var(--color-border);
+  --ring: #94a3b8;
+  --chart-1: #0f172a;
+  --chart-2: #334155;
+  --chart-3: #475569;
+  --chart-4: #64748b;
+  --chart-5: #94a3b8;
+  --radius: 0.625rem;
+  --sidebar: #f8fafc;
+  --sidebar-foreground: var(--color-text);
+  --sidebar-primary: var(--color-primary);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f5f9;
+  --sidebar-accent-foreground: var(--color-text);
+  --sidebar-border: var(--color-border);
+  --sidebar-ring: #94a3b8;
+}
+
+.dark {
+  --background: #020617;
+  --foreground: #f8fafc;
+  --card: #0f172a;
+  --card-foreground: #f8fafc;
+  --popover: #0f172a;
+  --popover-foreground: #f8fafc;
+  --primary: #f8fafc;
+  --primary-foreground: #020617;
+  --secondary: #1e293b;
+  --secondary-foreground: #f8fafc;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #1e293b;
+  --accent-foreground: #f8fafc;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: rgb(255 255 255 / 10%);
+  --input: rgb(255 255 255 / 15%);
+  --ring: #64748b;
+  --chart-1: #e2e8f0;
+  --chart-2: #94a3b8;
+  --chart-3: #64748b;
+  --chart-4: #475569;
+  --chart-5: #334155;
+  --sidebar: #0f172a;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #64748b;
+  --sidebar-primary-foreground: #f8fafc;
+  --sidebar-accent: #1e293b;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: rgb(255 255 255 / 10%);
+  --sidebar-ring: #64748b;
+}
