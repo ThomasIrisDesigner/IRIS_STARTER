@@ -34,11 +34,11 @@ function subscribe(listener: () => void) {
 }
 
 function getSnapshot() {
-  return localStorage.getItem(AUTH_STORAGE_KEY) === "1"
-}
-
-function getServerSnapshot() {
-  return false
+  try {
+    return window.localStorage.getItem(AUTH_STORAGE_KEY) === "1"
+  } catch {
+    return false
+  }
 }
 
 function emit() {
@@ -46,20 +46,20 @@ function emit() {
 }
 
 function setSession(active: boolean) {
-  if (active) {
-    localStorage.setItem(AUTH_STORAGE_KEY, "1")
-  } else {
-    localStorage.removeItem(AUTH_STORAGE_KEY)
+  try {
+    if (active) {
+      window.localStorage.setItem(AUTH_STORAGE_KEY, "1")
+    } else {
+      window.localStorage.removeItem(AUTH_STORAGE_KEY)
+    }
+  } catch {
+    /* navigation privée / stockage désactivé : l’UI reste utilisable */
   }
   emit()
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const isAuthenticated = useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    getServerSnapshot
-  )
+  const isAuthenticated = useSyncExternalStore(subscribe, getSnapshot)
 
   const login = useCallback((password: string) => {
     if (password === AUTH_PASSWORD) {
