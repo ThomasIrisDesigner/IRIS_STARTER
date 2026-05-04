@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Navigate, useLocation, useNavigate } from "react-router-dom"
 
 import { useAuth } from "@/auth/AuthContext"
-import { PROJECT_DISPLAY_NAME } from "@/config/project"
+import { ProjectBrandLink } from "@/components/ProjectBrandLink"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -41,8 +41,10 @@ export function Login() {
           "w-full max-w-sm rounded-2xl border border-border bg-card p-8 shadow-sm"
         )}
       >
-        <p className={cn(typography.projectBadge, "mb-6 text-center")}>
-          {PROJECT_DISPLAY_NAME}
+        <p className="mb-6 text-center">
+          <ProjectBrandLink
+            className={cn(typography.projectBadge, "inline-block")}
+          />
         </p>
         <h1 className={cn(typography.loginTitle, "mb-2 text-center")}>
           Accès sécurisé

@@ -11,6 +11,15 @@
   --color-text: #1e293b;
   --color-login-canvas: #f1f5f9;
   --color-surface: #ffffff;
+  --color-mockup-bezel: #0a0a0a;
+  --color-mockup-island: #101010;
+  --color-mockup-home-bar: rgb(148 163 184 / 0.9);
+  /* Accents discrets pour colonnes d’arborescence (même famille slate) */
+  --arbo-accent-1: #334155;
+  --arbo-accent-2: #3f4f63;
+  --arbo-accent-3: #4b5c6e;
+  --arbo-accent-4: #5a6a7b;
+  --arbo-accent-5: #64748b;
 
   --background: var(--color-background);
   --foreground: var(--color-text);
@@ -78,4 +87,12 @@
   --sidebar-accent-foreground: #f8fafc;
   --sidebar-border: rgb(255 255 255 / 10%);
   --sidebar-ring: #64748b;
+  --color-mockup-bezel: #000000;
+  --color-mockup-island: #0f0f0f;
+  --color-mockup-home-bar: rgb(148 163 184 / 0.45);
+  --arbo-accent-1: #94a3b8;
+  --arbo-accent-2: #7c8ca0;
+  --arbo-accent-3: #6b7c90;
+  --arbo-accent-4: #5c6d82;
+  --arbo-accent-5: #94a3b8;
 }

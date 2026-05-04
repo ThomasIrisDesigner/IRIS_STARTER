@@ -1,5 +1,6 @@
+import { ProjectBrandLink } from "@/components/ProjectBrandLink"
+import { SiteArborescenceBoard } from "@/presentation/SiteArborescenceBoard"
 import { WireframeScreen } from "@/presentation/WireframeScreen"
-import { PROJECT_DISPLAY_NAME } from "@/config/project"
 import { typography } from "@/styles/typography"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
@@ -46,60 +47,115 @@ const demoDesktopAnnotations = [
   },
 ] as const
 
+const tabPanelClass = "py-8 data-[state=inactive]:hidden"
+
 export function PresentationLayout() {
   return (
-    <div className="min-h-svh bg-background">
-      <header className="border-b border-border bg-card px-4 py-8 sm:px-8">
-        <div className="mx-auto max-w-5xl">
-          <h1 className={typography.presentationTitle}>{PROJECT_DISPLAY_NAME}</h1>
-          <p className={cn(typography.presentationSubtitle, "mt-2 max-w-2xl")}>
-            Présentation des wireframes
-          </p>
-        </div>
-      </header>
+    <Tabs defaultValue="arborescence" className="w-full">
+      <div className="min-h-svh bg-background">
+        <header
+          className={cn(
+            "sticky top-0 z-30 border-b border-border",
+            "bg-card/90 backdrop-blur-md supports-[backdrop-filter]:bg-card/80"
+          )}
+        >
+          <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
+            <div
+              className={cn(
+                "flex flex-col items-stretch gap-4",
+                "sm:relative sm:min-h-[2.75rem] sm:flex-row sm:items-center sm:justify-center sm:gap-0"
+              )}
+            >
+              <div className="min-w-0 shrink-0 sm:absolute sm:start-0 sm:top-1/2 sm:max-w-[42%] sm:-translate-y-1/2">
+                <h1 className="m-0 min-w-0 p-0">
+                  <ProjectBrandLink
+                    className={cn(
+                      typography.presentationHeaderTitle,
+                      "inline-block max-w-full truncate"
+                    )}
+                  />
+                </h1>
+                <p className={typography.presentationHeaderSubtitle}>
+                  Présentation des wireframes
+                </p>
+              </div>
 
-      <main className="mx-auto max-w-5xl px-4 py-10 sm:px-8">
-        <Tabs defaultValue="ecran-1" className="gap-6">
-          <TabsList variant="line" className="w-full sm:w-auto">
-            <TabsTrigger value="ecran-1" className="flex-1 sm:flex-none">
-              Écran 1 — mobile
-            </TabsTrigger>
-            <TabsTrigger value="ecran-2" className="flex-1 sm:flex-none">
-              Écran 2 — desktop
-            </TabsTrigger>
-          </TabsList>
+              <TabsList
+                variant="line"
+                className={cn(
+                  "relative z-10 h-8 w-full justify-center gap-0.5 p-0",
+                  "rounded-none border-0 bg-transparent sm:w-auto sm:shrink-0"
+                )}
+              >
+                <TabsTrigger
+                  value="arborescence"
+                  className="h-8 rounded-md px-3 py-0 text-xs sm:px-3.5"
+                >
+                  Arborescence
+                </TabsTrigger>
+                <TabsTrigger
+                  value="ecran-1"
+                  className="h-8 rounded-md px-3 py-0 text-xs sm:px-3.5"
+                >
+                  Écrans mobiles
+                </TabsTrigger>
+                <TabsTrigger
+                  value="ecran-2"
+                  className="h-8 rounded-md px-3 py-0 text-xs sm:px-3.5"
+                >
+                  Écrans desktop
+                </TabsTrigger>
+              </TabsList>
+            </div>
+          </div>
+        </header>
 
-          <TabsContent value="ecran-1" className="rounded-xl border border-border bg-card p-6 shadow-sm">
+        <main className="mx-auto w-full max-w-6xl px-4 pb-12 pt-2 sm:px-6 sm:pb-16 sm:pt-4">
+          <TabsContent value="arborescence" className={tabPanelClass}>
+            <div className="mx-auto w-full max-w-[min(100%,72rem)]">
+              <h2 className={cn(typography.wireframeTitleCompact, "mb-2")}>
+                Structure du site
+              </h2>
+              <p className={cn(typography.treeIntro, "mb-8 max-w-2xl")}>
+                Lecture par niveaux : entrée, grands ensembles, sous-pages
+                puis types de gabarit — schéma type livrable d’architecture
+                d’information (contenus fictifs).
+              </p>
+              <SiteArborescenceBoard />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="ecran-1" className={tabPanelClass}>
             <WireframeScreen
               title="Connexion rapide"
               device="mobile"
               annotations={[...demoMobileAnnotations]}
             >
-              <div className="space-y-3 rounded-lg border border-dashed border-border bg-muted/30 p-4">
+              <div className="space-y-2 rounded-md border border-dashed border-border bg-muted/30 p-3">
                 <div className="h-2 w-2/3 rounded bg-muted-foreground/20" />
                 <div className="h-2 w-full rounded bg-muted-foreground/15" />
                 <div className="h-2 w-5/6 rounded bg-muted-foreground/15" />
-                <div className="mt-4 h-9 w-full rounded-md bg-muted-foreground/10" />
+                <div className="mt-3 h-8 w-full rounded-md bg-muted-foreground/10" />
               </div>
             </WireframeScreen>
           </TabsContent>
 
-          <TabsContent value="ecran-2" className="rounded-xl border border-border bg-card p-6 shadow-sm">
+          <TabsContent value="ecran-2" className={tabPanelClass}>
             <WireframeScreen
               title="Tableau de bord"
               device="desktop"
               annotations={[...demoDesktopAnnotations]}
             >
-              <div className="grid gap-3 lg:grid-cols-3">
-                <div className="h-24 rounded-lg border border-dashed border-border bg-muted/30" />
-                <div className="h-24 rounded-lg border border-dashed border-border bg-muted/30" />
-                <div className="h-24 rounded-lg border border-dashed border-border bg-muted/30" />
-                <div className="h-40 rounded-lg border border-dashed border-border bg-muted/30 lg:col-span-3" />
+              <div className="grid gap-2 sm:grid-cols-3">
+                <div className="h-20 rounded-md border border-dashed border-border bg-muted/30 sm:h-24" />
+                <div className="h-20 rounded-md border border-dashed border-border bg-muted/30 sm:h-24" />
+                <div className="h-20 rounded-md border border-dashed border-border bg-muted/30 sm:h-24" />
+                <div className="h-28 rounded-md border border-dashed border-border bg-muted/30 sm:col-span-3 sm:h-32" />
               </div>
             </WireframeScreen>
           </TabsContent>
-        </Tabs>
-      </main>
-    </div>
+        </main>
+      </div>
+    </Tabs>
   )
 }

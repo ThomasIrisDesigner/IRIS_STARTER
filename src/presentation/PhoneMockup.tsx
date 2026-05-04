@@ -1,6 +1,5 @@
-import type { ReactNode } from "react"
+import { useId, type ReactNode } from "react"
 
-import { typography } from "@/styles/typography"
 import { cn } from "@/lib/utils"
 
 type PhoneMockupProps = {
@@ -9,19 +8,43 @@ type PhoneMockupProps = {
 }
 
 export function PhoneMockup({ children, screenTitle }: PhoneMockupProps) {
+  const reactId = useId()
+  const titleId = `mockup-title-${reactId.replace(/:/g, "")}`
+
   return (
     <div
+      role="region"
+      aria-labelledby={titleId}
       className={cn(
-        "mx-auto w-full max-w-[280px] rounded-[2.25rem] border border-border bg-muted p-2 shadow-sm"
+        "mx-auto flex aspect-[9/19] h-[min(34rem,calc(100svh-10rem))] w-auto max-w-[min(270px,92vw)] shrink-0 flex-col"
       )}
     >
-      <div className="overflow-hidden rounded-[1.85rem] border border-border bg-background">
-        <div className="flex items-center justify-between border-b border-border bg-muted/50 px-3 py-2">
-          <span className={cn(typography.mockupChromeLabel, "flex-1 text-center")}>
-            {screenTitle}
-          </span>
+      <span id={titleId} className="sr-only">
+        {screenTitle}
+      </span>
+      <div
+        className={cn(
+          "flex min-h-0 flex-1 flex-col rounded-[2.75rem] p-[11px]",
+          "bg-[var(--color-mockup-bezel)]"
+        )}
+      >
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[2.05rem] bg-background">
+          <div
+            className="flex shrink-0 flex-col items-center justify-center bg-[var(--color-mockup-bezel)] pb-2 pt-2.5"
+            aria-hidden
+          >
+            <div className="h-[1.35rem] w-[4.5rem] shrink-0 rounded-full bg-[var(--color-mockup-island)]" />
+          </div>
+          <div className="min-h-0 flex-1 overflow-auto px-2.5 pb-2 pt-1.5">
+            {children}
+          </div>
+          <div className="flex shrink-0 justify-center bg-background pb-2 pt-1">
+            <div
+              className="h-[3px] w-9 rounded-full bg-[var(--color-mockup-home-bar)]"
+              aria-hidden
+            />
+          </div>
         </div>
-        <div className="min-h-[420px] bg-background p-3">{children}</div>
       </div>
     </div>
   )

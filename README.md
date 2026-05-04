@@ -49,7 +49,7 @@ Elle est utilisée sur l’écran **Login** et dans l’en-tête de **Presentati
 1. Ouvrir `src/auth/constants.ts`.
 2. Modifier la constante `AUTH_PASSWORD` (valeur par défaut : `demo2024`).
 
-La session est stockée dans `sessionStorage` sous la clé `AUTH_STORAGE_KEY` du même fichier.
+La connexion est mémorisée dans `localStorage` (clé `AUTH_STORAGE_KEY` dans le même fichier), ce qui la partage entre les onglets du même site — nécessaire notamment quand le prototype s’ouvre dans un nouvel onglet.
 
 ---
 

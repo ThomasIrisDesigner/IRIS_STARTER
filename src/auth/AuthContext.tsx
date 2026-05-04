@@ -21,13 +21,20 @@ const listeners = new Set<() => void>()
 
 function subscribe(listener: () => void) {
   listeners.add(listener)
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === AUTH_STORAGE_KEY || e.key === null) {
+      listener()
+    }
+  }
+  window.addEventListener("storage", onStorage)
   return () => {
     listeners.delete(listener)
+    window.removeEventListener("storage", onStorage)
   }
 }
 
 function getSnapshot() {
-  return sessionStorage.getItem(AUTH_STORAGE_KEY) === "1"
+  return localStorage.getItem(AUTH_STORAGE_KEY) === "1"
 }
 
 function getServerSnapshot() {
@@ -40,9 +47,9 @@ function emit() {
 
 function setSession(active: boolean) {
   if (active) {
-    sessionStorage.setItem(AUTH_STORAGE_KEY, "1")
+    localStorage.setItem(AUTH_STORAGE_KEY, "1")
   } else {
-    sessionStorage.removeItem(AUTH_STORAGE_KEY)
+    localStorage.removeItem(AUTH_STORAGE_KEY)
   }
   emit()
 }
